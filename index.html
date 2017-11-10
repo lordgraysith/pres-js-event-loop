@@ -1,0 +1,783 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Full Stack JavaScript</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="author" content="Thomas A. Valletta" />
+  <link href="css/impress.css" rel="stylesheet" />
+  <link href="css/prism.css" rel="stylesheet" />
+  <style>
+    @font-face {
+      font-family: 'QlassikMediumRegular';
+      src: url('css/font/Qlassik-Medium/Qlassik_TB-webfont.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+
+    }
+
+    @font-face {
+      font-family: 'QlassikBoldRegular';
+      src: url('css/font/Qlassik-Medium/QlassikBold_TB-webfont.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+
+    }
+
+    @font-face {
+      font-family: 'Typewriter';
+      src: url('css/font/Typewriter/veteran_typewriter-webfont.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'fira_code';
+      src: url('css/font/firacode_regular_macroman/FiraCode-Regular-webfont.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'fira_codeMedium';
+      src: url('css/font/firacode_medium_macroman/FiraCode-Medium-webfont.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'fira_codeBold';
+      src: url('css/font/firacode_bold_macroman/FiraCode-Bold-webfont.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    .step {
+      font-size: 2em;
+    }
+
+    .step.nofade {
+      opacity: 1;
+    }
+
+    .step.invis {
+      opacity: 0;
+    }
+
+    .step.invis.active {
+      opacity: 1;
+    }
+
+    h1 {
+      font-size: 128px;
+      font-weight: bold;
+      line-height: 164px;
+      text-shadow: 1px 1px 2px #16324F;
+      color: #FF8700;
+    }
+
+    h2 {
+      font-size: 96px;
+      line-height: 96px;
+      color: #2A628F;
+    }
+
+    h3 {
+      font-size: 64px;
+      line-height: 64px;
+      color: #16324F;
+    }
+
+    h4 {
+      font-size: 48px;
+      line-height: 48px;
+      color: #13293D;
+    }
+
+    h5 {
+      font-size: 32px;
+      line-height: 32px;
+    }
+
+    h6 {
+      font-size: 24px;
+      line-height: 24px;
+    }
+
+    hr {
+      border-color: #FFBC42;
+    }
+
+    .small {
+      font-size: 36px;
+      color: #2A628F;
+    }
+
+    .x-small {
+      font-size: 30px;
+      color: #16324F;
+    }
+
+    .xx-small {
+      font-size: 24px;
+      color: #13293D;
+    }
+
+    .xxx-small {
+      font-size: 18px;
+      color: #13293D;
+    }
+
+    .timeline-l {
+      padding-right: 100px;
+      text-align: right;
+    }
+
+    svg.vis {
+      fill: white;
+    }
+
+    svg.vis rect {
+      stroke: black;
+    }
+
+    ul.bullets {
+      float: right;
+      width: 320px; 
+      list-style: disc;
+    }
+
+    ul.bullets.left {
+      float: left;
+    }
+
+    ul.bullets li {
+      margin-top: 20px;
+    }
+
+    em {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    .column.right {
+      display: flex;
+      flex-direction: column;
+      float: right;
+      height: 440px;
+      margin-top: -2px;
+      width: 236px;
+    }
+
+    .stack, .queue {
+      border: 4px solid black;
+      border-radius: 9px;
+      display: flex;
+      flex-direction: column-reverse;
+      padding: 0 19px 0 4px;
+    }
+
+    .stack {
+      height: 260px;
+    }
+
+    .queue {
+      height: 140px;
+    }
+
+    .stack > code, .queue > code {
+      border: 2px solid black;
+      display: block;
+      margin: 0 0 6px 4px;
+      font-size: .6em;
+      text-align: center;
+      width: 100%;
+    }
+
+    .blink {
+      animation: blinker 1s linear infinite;
+    }
+
+    @keyframes blinker {  
+      50% { opacity: 0; }
+    }
+
+    .bye {
+      opacity: .4;
+    }
+  </style>
+  <script type='text/javascript' src="js/prism.js"></script>
+  <script type='text/javascript' src="js/d3.v3.min.js"></script>
+  <script type='text/javascript' src="js/stack-vis.js"></script>
+</head>
+
+<body>
+  <p class="fallback-message">
+    Your browser doesn't support impress.js. Try Chrome or Safari.
+  </p>
+  <div id="impress">
+
+    <div id="title" class="step" data-x="0" data-y="0">
+      <h3>The JavaScript</h3>
+      <h1>Event Loop</h1>
+      <h4>Thomas A. Valletta</h4>
+    </div>
+
+    <div class="step stay" data-x="0" data-y="3000">
+      <h2>Frame</h2>
+      <pre><code class="language-js">function add(a, b) {
+  return a + b
+}
+add(4 + 4)</code></pre>
+    </div>
+
+    <div class="step invis" data-x="-100" data-y="3000" data-z="250" data-rotate-y="-55">
+      <ul class="bullets">
+        <li>A frame is created for the<code class="language-js"> add()</code> function containing</li>
+        <li>The frame contains the functions arguments and local variables</li>
+        <li>The frame goes onto the "Stack" for execution</li>
+      </h5>
+    </div>
+  
+    <div class="step stay" data-x="0" data-y="4000">
+      <h2>Two Frames</h2>
+      <pre><code class="language-js">function add(a, b) {
+  return a + b
+}
+function hello(name) {
+  return add('Hello, ', name)  
+}
+hello('Thomas')</code></pre>
+    </div>
+
+    <div class="step invis" data-x="-100" data-y="4000" data-z="250" data-rotate-y="-55">
+      <ul class="bullets">
+        <li>A frame is created for the <code class="language-js"> hello()</code> function</li>
+        <li>When <code class="language-js"> hello()</code> calls <code class="language-js"> add()</code> another frame is created</li>
+        <li>When <code class="language-js"> add()</code> returns its frame is popped off the stack</li>
+      </h5>
+    </div>
+
+    <div class="step stay" data-x="0" data-y="5000">
+      <h2>Run-to-completion</h2>
+      <pre><code class="language-js">1   const fs = require('fs')
+2   fs.readFile(
+3     '/home/test.json',
+4     (err, data) => {
+5       console.log(data)
+6     }
+7   )
+8   console.log('done')</code></pre>
+    </div>
+
+    <div class="step invis" data-x="100" data-y="5000" data-z="250" data-rotate-y="55">
+      <ul class="bullets left">
+        <li>Functions never* wait for calls to disk or network</li>
+        <li>Every frame on the stack runs-to-completion</li>
+        <li>They cannot be pre-empted by other threads or callbacks</li>
+      </h5>
+    </div>
+
+    <div class="step invis" data-x="-100" data-y="5000" data-z="250" data-rotate-y="-55">
+      <ul class="bullets">
+        <li>Line 8 will <em>always</em> complete before line 5</li>
+        <li>A frame for the arrow function on line 4 only gets added to the stack when it returns with file data</li>
+      </h5>
+    </div>
+    
+    <div class="step stay" data-x="0" data-y="6000">
+      <pre><code class="language-js">// Timeout Simulation
+ 1  function add(a, b)
+ 2    setTimeout(
+ 3       () => {
+ 4         console.log(a + b)
+ 5       }, 100)
+ 6    )
+ 7  }
+ 8  function hello(name) {
+ 9    return add('Hello, ', name)  
+10  }
+11  hello('Thomas')</code></pre>
+    </div>
+          
+    <div class="step invis" data-x="220" data-y="6000" data-z="700">
+      <div style="font-size: .68em; padding-top: 55px; float: left">
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js blink">11></code><br/>
+      </div>
+      <div class="column right">
+        Stack
+        <div class="stack">
+          <code class="language-js">main()</code>
+        </div>
+        Queue
+        <div class="queue">
+        </div>
+      </div>
+    </div>
+      
+    <div class="step invis" data-x="220" data-y="6000" data-z="700">
+      <div style="font-size: .68em; padding-top: 55px; float: left">
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js blink">08></code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+      </div>
+      <div class="column right">
+        Stack
+        <div class="stack">
+          <code class="language-js">main()</code>
+          <code class="language-js blink">hello(name)</code>
+        </div>
+        Queue
+        <div class="queue"></div>
+      </div>
+    </div>
+
+    <div class="step invis" data-x="220" data-y="6000" data-z="700">
+      <div style="font-size: .68em; padding-top: 55px; float: left">
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js blink">09></code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+      </div>
+      <div class="column right">
+        Stack
+        <div class="stack">
+          <code class="language-js">main()</code>
+          <code class="language-js">hello(name)</code>
+        </div>
+        Queue
+        <div class="queue"></div>
+      </div>
+    </div>
+          
+    <div class="step invis" data-x="220" data-y="6000" data-z="700">
+      <div style="font-size: .68em; padding-top: 55px; float: left">
+        <code class="language-js blink">01></code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+      </div>
+      <div class="column right">
+        Stack
+        <div class="stack">
+          <code class="language-js">main()</code>
+          <code class="language-js">hello(name)</code>
+          <code class="language-js blink">add(a, b)</code>
+        </div>
+        Queue
+        <div class="queue"></div>
+      </div>
+    </div>
+
+    <div class="step invis" data-x="220" data-y="6000" data-z="700">
+      <div style="font-size: .68em; padding-top: 55px; float: left">
+        <code class="language-js"> </code><br/>
+        <code class="language-js blink">02></code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+      </div>
+      <div class="column right">
+        Stack
+        <div class="stack">
+          <code class="language-js">main()</code>
+          <code class="language-js">hello(name)</code>
+          <code class="language-js">add(a, b)</code>
+          <code class="language-js blink">setTimeout()</code>
+        </div>
+        Queue
+        <div class="queue">
+          <code class="language-js bye">100   arrow:()</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="step invis" data-x="220" data-y="6000" data-z="700">
+      <div style="font-size: .68em; padding-top: 55px; float: left">
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js blink">06></code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+      </div>
+      <div class="column right">
+        Stack
+        <div class="stack">
+          <code class="language-js">main()</code>
+          <code class="language-js">hello(name)</code>
+          <code class="language-js">add(a, b)</code>
+          <code class="language-js bye">setTimeout()</code>
+        </div>
+        Queue
+        <div class="queue">
+          <code class="language-js bye">100   arrow:()</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="step invis" data-x="220" data-y="6000" data-z="700">
+      <div style="font-size: .68em; padding-top: 55px; float: left">
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js blink">07></code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+      </div>
+      <div class="column right">
+        Stack
+        <div class="stack">
+          <code class="language-js">main()</code>
+          <code class="language-js">hello(name)</code>
+          <code class="language-js bye">add(a, b)</code>
+        </div>
+        Queue
+        <div class="queue">
+          <code class="language-js bye">100   arrow:()</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="step invis" data-x="220" data-y="6000" data-z="700">
+      <div style="font-size: .68em; padding-top: 55px; float: left">
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js blink">10></code><br/>
+        <code class="language-js"> </code><br/>
+      </div>
+      <div class="column right">
+        Stack
+        <div class="stack">
+          <code class="language-js">main()</code>
+          <code class="language-js bye">hello(name)</code>
+        </div>
+        Queue
+        <div class="queue">
+          <code class="language-js bye">100   arrow:()</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="step invis" data-x="220" data-y="6000" data-z="700">
+      <div style="font-size: .68em; padding-top: 55px; float: left">
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+      </div>
+      <div class="column right">
+        Stack
+        <div class="stack">
+          <code class="language-js">main()</code>
+        </div>
+        Queue
+        <div class="queue">
+          <code class="language-js bye">100   arrow:()</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="step invis" data-x="220" data-y="6000" data-z="1000" data-rotate-y="-6">
+      <ul class="bullets">
+        <li>At this point the stack is exhausted</li>
+        <li>The application does not exit because there is still an event queued to run the arrow function on line 3 after 100ms</li>
+      </h5>
+    </div>        
+
+    <div class="step invis" data-x="220" data-y="6000" data-z="700">
+      <div style="font-size: .68em; padding-top: 55px; float: left">
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js blink">03></code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+      </div>
+      <div class="column right">
+        Stack
+        <div class="stack">
+          <code class="language-js">main()</code>
+          <code class="language-js blink">arrow:()</code>
+        </div>
+        Queue
+        <div class="queue"></div>
+      </div>
+    </div>
+  
+    <div class="step invis" data-x="220" data-y="6000" data-z="700">
+      <div style="font-size: .68em; padding-top: 55px; float: left">
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js blink">05></code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+      </div>
+      <div class="column right">
+        Stack
+        <div class="stack">
+          <code class="language-js">main()</code>
+          <code class="language-js bye">arrow:()</code>
+        </div>
+        Queue
+        <div class="queue"></div>
+      </div>
+    </div>
+  
+    <div class="step invis" data-x="220" data-y="6000" data-z="700">
+      <div style="font-size: .68em; padding-top: 55px; float: left">
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+        <code class="language-js"> </code><br/>
+      </div>
+      <div class="column right">
+        Stack
+        <div class="stack">
+          <code class="language-js bye">main()</code>
+        </div>
+        Queue
+        <div class="queue"></div>
+      </div>
+    </div>
+
+    <div class="step" data-x="0" data-y="7000">
+      <h2>Advantages</h2>
+      <ul class="bullets left small">
+        <li>Concurrency</li>
+        <li>I/O</li>
+        <li>Efficiency</li>
+        <li>System Memory</li>
+      </ul>
+    </div>
+
+    <div class="step" data-x="0" data-y="8000">
+      <h2>Disadvantages</h2>
+      <ul class="bullets left small">
+        <li>Long-running processes</li>
+        <li>Unique development patterns</li>
+        <li>Recursion limits</li>
+      </ul>
+    </div>
+
+    <div class="step" data-show-stack="" data-x="0" data-y="12000"></div>
+
+  </div>
+  <script type="text/javascript" src="js/impress.js"></script>
+  <script type='text/javascript' src='js/d3.v3.min.js'></script>
+  <script>
+    var el = document.getElementById("impress");
+
+    let sv
+    var hidden = [];
+    var shown = [];
+    var highlighted = [];
+    var faded = [];
+
+    el.addEventListener("impress:stepenter", function (event) {
+
+      // --- stay ---
+      if (event.target.classList.contains('stay')) {
+        event.target.style.opacity = 1;
+      }
+
+      // --- data-show ---
+      if (event.target.hasAttribute('data-show')) {
+        var showList = event.target.getAttribute('data-show').split(' ');
+        for (var i = 0; i < showList.length; ++i) {
+          var $el = document.getElementById(showList[i]);
+          shown.push({ el: $el, opacity: $el.style.opacity });
+          $el.style.opacity = 1;
+        }
+      }
+
+      // --- data-hide ---
+      if (event.target.hasAttribute('data-hide')) {
+        var hideList = event.target.getAttribute('data-hide').split(' ');
+        for (var i = 0; i < hideList.length; ++i) {
+          var $el = document.getElementById(hideList[i]);
+          hidden.push({ el: $el, opacity: $el.style.opacity });
+          $el.style.opacity = 0;
+        }
+      }
+
+      // --- data-highlight ---
+      if (event.target.hasAttribute('data-highlight')) {
+        var highlightList = event.target.getAttribute('data-highlight').split(' ');
+        for (var i = 0; i < highlightList.length; ++i) {
+          var $el = document.getElementById(highlightList[i]);
+          highlighted.push($el);
+          $el.style['text-shadow'] = '0 0 5px white, 0 0 10px white, 0 0 30px white';
+        }
+      }
+
+      // --- data-fade ---
+      if (event.target.hasAttribute('data-fade')) {
+        var fadeList = event.target.getAttribute('data-fade').split(' ')
+        for (var i = 0; i < fadeList.length; ++i) {
+          var $el = document.getElementById(fadeList[i])
+          faded.push({ el: $el, opacity: $el.style.opacity })
+          $el.style.opacity = 0.2
+        }
+      }
+
+      // === CUSTOM CRAP ===z===z===z===z===z===z===z===z===z===z===z===z===z===
+
+      // --- data-show-stack ---
+      if (event.target.hasAttribute('data-show-stack')) {
+        const cfg = {
+          $el: event.target,
+          dataset: [],
+          dequeue: {
+            interval: 16,
+            count: .1
+          },
+          slow: 1
+        }
+        for (var i = 0; i < 100; ++i) {
+          cfg.dataset[i] = {
+            x: (Math.random() * 360) + 20,
+            y: (Math.random() * 560) + 20,
+            delay: i * 40
+          }
+        }
+        sv = runStackVisualization(cfg)
+      }
+      // --- data-show-stack ---
+
+    }, false)
+
+    el.addEventListener("impress:stepleave", function (event) {
+
+      // --- data-show ---
+      if (hidden.length) {
+        for (var i = 0; i < shown.length; ++i) {
+          shown[i].el.style.opacity = shown[i].opacity
+        }
+        shown = [];
+      }
+
+      // --- data-hide ---
+      if (hidden.length) {
+        for (var i = 0; i < hidden.length; ++i) {
+          hidden[i].el.style.opacity = hidden[i].opacity
+        }
+        hidden = [];
+      }
+
+      // --- data-highlighted ---
+      if (highlighted.length) {
+        for (var i = 0; i < highlighted.length; ++i) {
+          highlighted[i].style['text-shadow'] = 'none'
+        }
+        highlighted = [];
+      }
+
+      // --- data-faded ---
+      if (faded.length) {
+        for (var i = 0; i < faded.length; ++i) {
+          faded[i].el.style.opacity = faded[i].opacity
+        }
+        faded = []
+      }
+
+      // === CUSTOM CRAP ===z===z===z===z===z===z===z===z===z===z===z===z===z===
+
+      // --- data-show-stack ---
+      if (event.target.hasAttribute('data-show-stack')) {
+        let $svg = event.target.querySelector('svg')
+        $svg.remove()
+      }
+
+    }, false)
+
+    document.addEventListener("impress:init", function (event) {
+
+    })
+
+    impress().init()
+
+  </script>
+</body>
+
+</html>
